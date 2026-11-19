@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChIP-seq: RUNX1 Binding in MCF-7 Breast Cancer Cells | Addison Yam</title><meta name="description" content="A Nextflow re-analysis of Barutcu et al. 2016 that maps RUNX1 binding genome-wide and ties it to gene expression after RUNX1 knockdown."><meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../style.css"></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap"><a class="brand" href="../index.html">Addison Yam</a><nav aria-label="Main"><ul><li><a href="../index.html">Home</a></li><li><a href="../projects.html" aria-current=page>Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../Addison_Yam_CV_Nov_2026.pdf">CV (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav></div></header>
+<main id="main"><div class="wrap"><a class="back" href="../projects.html">← All projects</a>
+<header class="proj-head"><p class="eyebrow">Project</p><h1>ChIP-seq: RUNX1 Binding in MCF-7 Breast Cancer Cells</h1><p class="lede">A Nextflow re-analysis of Barutcu et al. 2016 that maps RUNX1 binding genome-wide and ties it to gene expression after RUNX1 knockdown.</p></header>
+<div class="stats"><div><b>6,462</b><span>RUNX1 binding sites (README)</span></div><div><b>2 + 2</b><span>IP + input replicates</span></div><div><b>14.7–18.7%</b><span>of DEGs are direct targets (README)</span></div></div>
+<section style="padding-top:var(--s-6)"><h2>Goal</h2><p style="margin-top:var(--s-3)">Identify direct RUNX1 targets by combining ChIP-seq peaks with RNA-seq from RUNX1 knockdown cells.</p></section>
+<section style="padding-top:var(--s-6)"><h2>Data and methods</h2><p style="margin-top:var(--s-3)">Each IP and input replicate is trimmed (Trimmomatic), checked (FastQC), aligned (Bowtie2) and converted to HOMER tag directories. HOMER calls factor-style peaks and discovers motifs, deepTools builds coverage, correlation and profile plots, and bedtools intersects peaks with the knockdown RNA-seq data (GSE75070). Enrichr summarizes target-gene pathways.</p></section>
+<section style="padding-top:var(--s-6)"><h2>Code</h2><div class="code"><header><span>modules/homer_findpeaks/main.nf</span><button type="button">Copy</button></header><pre class="hl"><code><span class="n">process</span><span class="w"> </span><span class="n">HOMER_FINDPEAKS</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">container</span><span class="w"> </span><span class="s1">'ghcr.io/bf528/homer_samtools:latest'</span>
+<span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="s2">"${params.outdir}/homer/peaks"</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="w"> </span><span class="s1">'copy'</span>
+<span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="s1">'process_medium'</span>
+
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">ip_sample</span><span class="o">),</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">replicate</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="n">ip_tagdir</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="n">input_tagdir</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">replicate</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="s2">"${ip_sample}_peaks.txt"</span><span class="o">),</span><span class="w"> </span><span class="nl">emit:</span><span class="w"> </span><span class="n">peaks</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">"""</span>
+<span class="s2">    findPeaks ${ip_tagdir} -style factor -o ${ip_sample}_peaks.txt -i ${input_tagdir}</span>
+<span class="s2">    """</span>
+
+<span class="w">    </span><span class="nl">stub:</span>
+<span class="w">    </span><span class="s2">""</span><span class="err">"</span>
+<span class="w">    </span><span class="n">touch</span><span class="w"> </span><span class="n">$</span><span class="o">{</span><span class="n">ip_sample</span><span class="o">}</span><span class="n">_peaks</span><span class="o">.</span><span class="na">txt</span>
+</code></pre></div><p class="num" style="font-size:var(--t-0);color:var(--muted);margin-top:calc(var(--s-3)*-1)">Nextflow process: HOMER peak calling against input</p></section>
+<section style="padding-top:var(--s-6)"><h2>Results</h2><div class="figs"><figure><div class="media"><img src="../assets/img/chipseq-runx1-figure_2d_malat1.webp" alt="Genome browser view of RUNX1 ChIP signal at the MALAT1 promoter" width="1400" height="967" loading="lazy" decoding="async"></div><figcaption>RUNX1 signal at the MALAT1 promoter (replicates paper Figure 2D).</figcaption></figure><figure><div class="media"><img src="../assets/img/chipseq-runx1-supp_figure_s2c_venn.webp" alt="Venn diagram of peak overlap between the two IP replicates" width="1400" height="1174" loading="lazy" decoding="async"></div><figcaption>Peak overlap between IP replicates.</figcaption></figure><figure><div class="media"><img src="../assets/img/chipseq-runx1-known_homer_motif.webp" alt="Top known motifs enriched in RUNX1 peaks from HOMER" width="1400" height="657" loading="lazy" decoding="async"></div><figcaption>Top enriched motifs (HOMER).</figcaption></figure></div></section>
+<section style="padding-top:var(--s-6)"><h2>Tools</h2><ul class="tags" style="margin-top:var(--s-4)"><li>Nextflow</li><li>Trimmomatic</li><li>FastQC</li><li>Bowtie2</li><li>samtools</li><li>HOMER</li><li>deepTools</li><li>bedtools</li><li>Enrichr</li><li>Python</li></ul></section>
+<section style="padding-top:var(--s-6)"><h2>Links</h2><ul class="links" style="margin-top:var(--s-4)"><li><a class="btn" href="https://github.com/addisonyam/ChIPseq-Analysis-Pipeline">Repository</a></li><li><a class="btn" href="https://github.com/addisonyam/ChIPseq-Analysis-Pipeline/blob/main/Report_Latex_Version.pdf">Report (PDF)</a></li></ul></section>
+<p class="takeaway">Peaks plus knockdown expression data point to direct RUNX1 regulation across cell-cycle, DNA-damage and metabolic genes.</p></div></main>
+<footer><div class="wrap"><span>© 2026 Addison Yam · Boston, MA</span><span><a href="mailto:addisony@bu.edu">addisony@bu.edu</a> · <a href="https://github.com/addisonyam/">GitHub</a> · <a href="https://www.linkedin.com/in/addisonyam">LinkedIn</a></span></div></footer>
+<script src="../assets/main.js" defer></script></body></html>
