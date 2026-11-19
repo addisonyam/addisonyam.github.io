@@ -1,0 +1,108 @@
+Addison Yam
+addisony@bu.edu • github.com/addisonyam • linkedin.com/in/addisonyam • (646) 804-4425
+Education
+Boston University, Boston, MA 2026
+M.Sc. Bioinformatics
+University at Buffalo, Buffalo, NY 2025
+B.Sc. Bioinformatics and Computational Biology — Computer Science Concentration
+Research Experience
+Computational Biology Intern May 2026 – Sept 2026
+Protein Engineering Group, AB Biosciences Concord, MA
+• Predicted 500+ antibody-fusion structures via AlphaFold3 for oncology drug discovery programs, including afucosylated
+antibodies engineered for enhanced Fc effector function (ADCC) and multi-Fc/multi-Fab formats.
+• Validated structural integrity via ChimeraX, optimized linkers and domain packing for stable assembly, and identified
+designs to advance the company’s immunology-focused protein engineering and drug discovery pipeline.
+• Benchmarked AlphaFold3 vs. ESMFold2 and authored a company-wide, SOP-style reproducibility guide for 3D predictions.
+Computational Biology Researcher Oct 2022 – Aug 2025
+Structural Biology Dept, Jacobs School of Medicine & Biomedical Sciences Buffalo, NY
+• Processed & unified 100+ public KLF4 ChIP-seq samples to create a comprehensive data compendium.
+• Aligned sequencing data and identified 50+ regulatory (e.g., nucleosome, histone, motif) determinants.
+• Discovered pioneer TF factors by applying ML techniques to integrated genomic & chromatin data.
+• Built a ML classifier integrating 50+ regulatory features to predict Yamanaka transcription factor binding.
+• Benchmarked 3D protein prediction CASP output by comparing structural decoys against native structures.
+• Enhanced accuracy of SCRMshaw ML regulatory enhancer discovery tool by varying heterochromatin evaluations.
+Genomics Research Assistant May 2024 – May 2025
+Biological Sciences Dept, University at Buffalo Buffalo, NY
+• Developed custom Bash/UNIX scripts for the reproducible assembly of high-quality razorback sucker fish genomes.
+• Executed Nanopore library preparation & DNA extraction for initial QC & downstream assembly.
+• Optimized and troubleshot genomic assembly tools for parallel execution on a SLURM-managed HPC.
+Biostatistics Research Intern May 2022 – Aug 2022
+Columbia University New York, NY
+• Analyzed ABCD study data investigating maternal substance use and adolescent neurodevelopment.
+• Employed inferential statistics on high-dimensional cohort data to summarize significant findings.
+Funded Research Programs & Fellowships
+Massachusetts Life Sciences Center’s Internship Challenge Summer 2026
+McNair Scholar Summer Research Internship Program Summer 2025
+SUNY Chancellor’s Biological Sciences Summer Undergraduate Research Excellence Program Summer 2024
+Buffalo Research Innovation in Genomic Healthcare Technology Training Program Summer 2023
+Biostatistics, Epidemiology, and Research Design Winter Institute Winter 2023
+Columbia University’s Biostatistics Epidemiology Summer Training Program Summer 2022
+Leadership, Teaching, & Advising Experience
+Student Ambassador — Graduate Program in Bioinformatics 2026
+Masters Student Advisory Chair — Bioinformatics Organized Students (BiOS) 2025 – 2026
+VP & New Member Chair — Alpha Kappa Chi, Coeducational Professional Environmental Fraternity 2024 – 2025
+Lecture Teaching Assistant & SI PAL Leader — Cellular Biology 2023 – 2025
+First-Gen Mentor 2023 – 2025
+Director & Food/Mentorship Lead — UB Hacking, Undergraduate-led Hackathon Organization 2023 – 2025
+Honors Ambassador & Honors Connection Mentor — University Honors College 2022 – 2025
+Resident Advisor 2022 – 2024
+
+Honors & Awards
+Ronald E. McNair Post-Baccalaureate Achievement Program 2022 – 2025
+Collegiate Science and Technology Entry Program 2022 – 2025
+University Honors College 2021 – 2025
+Pride of NY Scholarship 2021 – 2025
+The Pledge of the Computing Professional 2025
+UB Flame of Wisdom Pin — Awarded at Celebration of Student Academic Excellence 2025
+Research Funding Awards — Honors College Research & Creativity Fund, Experiential Learning Award 2024
+Conference Funding Awards — Somer Travel, Robert Occhino, Experiential Learning Award 2023
+Grace Lee Dean’s Scholarship — ‘Top Bioinformatics Undergraduate’ 2023
+Resident Advisor of the Month 2022
+UB Hacking Hackathon Award — ‘Most Fun & Inclusive Way to Boost Social Engagement’ 2021
+Skills & Qualifications
+Languages & Tools: Python, R (Tidyverse, DESeq2), Bash/Shell, C++, Java, JavaScript, HTML/CSS, Git/GitHub, LaTeX
+Bioinformatics & Pipelines: NGS (ChIP-seq, RNA-seq, ATAC-seq), STAR, HISAT2, BWA, Bowtie, DESeq2, edgeR,
+MACS2, HOMER, Genome Assembly, Differential Expression, Motif Analysis, Epigenetics, Nextflow, Snakemake
+HPC & Infrastructure: SLURM, LSF, HPC Cluster Management, Docker, Singularity
+Machine Learning: scikit-learn, PyTorch, TensorFlow, Random Forest, SVM, Statistical Analysis, Data Visualization
+Certificates: Mentored Research Badge (2024), Leadership Alliance Professional Development Series (2023), Google Project
+Management Specialization (2023), SPARK Fellowships & Scholarships Development Program (2023)
+Presentations
+Yam, Addison & Hsu, Y.M. (2026, August). Triaging Homotrimers: A Structural Decision Framework for AlphaFold3-
+Predicted Fc-Fusion Candidates [Poster]. Boston University Bioinformatics Master’s Student Summer Internship Symposium,
+Boston, MA.
+Yam, Addison & Buck, M. (2025, November). Unraveling the mechanisms & limitations of KLF4 pioneer factor ability
+[Poster]. Boston University Annual Genome Science Institute Research Symposium, Boston, MA.
+Yam, Addison & Buck, M. (2025, July). Unraveling the mechanisms & limitations of KLF4 pioneer factor ability [Oral].
+UB Undergraduate Research Conference, Buffalo, NY.
+Yam, Addison & Buck, M. (2025, June). Unraveling the mechanisms & limitations of KLF4 pioneer factor ability [Poster].
+WNY Regional McNair Research and Professional Development Symposium, Niagara Falls, NY.
+Yam, Addison & Ahkter, N. (2025, May). Evaluating the quality of tertiary protein complex structure prediction tools
+[Poster]. UB Annual Celebration of Student Academic Excellence, Buffalo, NY.
+Yam, Addison (2025, May). UB curriculum capstone e-portfolio: My undergraduate experience [Poster]. UB Annual
+Celebration of Student Academic Excellence, Buffalo, NY.
+Yam, Addison & Krabbenhoft, T. (2025, April). Advancing genomic assembly: Evaluating the impact of new tools on the
+Xyrauchen texanus genome [Poster]. SUNY AI Symposium, Buffalo, NY.
+Yam, Addison & Krabbenhoft, T. (2024, November). Advancing genomic assembly: Evaluating the impact of new tools on
+the Xyrauchen texanus genome [Poster]. UB First Generation Research Symposium, Buffalo, NY.
+Yam, Addison & Krabbenhoft, T. (2024, July). Advancing genomic assembly: Evaluating the impact of new tools on the
+Xyrauchen texanus genome [Poster]. UB SUNY Chancellor’s Biological Sciences Summer Undergraduate Research Excellence
+Program REU, Buffalo, NY.
+Yam, Addison & Halfon, M. (2024, May). Improving computational methods for enhancer discovery [Poster]. UB Annual
+Celebration of Student Academic Excellence, Buffalo, NY.
+Yam, Addison & Halfon, M. (2024, April). Improving computational methods for enhancer discovery [Poster]. SUNY
+Undergraduate Research Conference (SURC), Buffalo, NY.
+Yam, Addison & LaMonte, M. (2024, January). Factors associated with incidence of myocardial infarction – A prospective
+cohort study [Poster & Oral]. Biostatistics, Epidemiology and Research Design (BERD) Winter Institute REU, Buffalo, NY.
+Yam, Addison & Halfon, M. (2023, November). Improving computational methods for enhancer discovery [Poster]. Annual
+Biomedical Research Conference for Minoritized Scientists (ABRCMS), Phoenix, AZ.
+Yam, Addison & Halfon, M. (2023, August). Improving computational methods for enhancer discovery [Oral]. Buffalo
+Research for Innovation Genomic & Healthcare Technology (BRIGHT) Program REU, Buffalo, NY.
+
+Yam, Addison, Elhaissouni, N., & Liu, Y. (2022, July). Analyzing substance use for the Adolescent Brain Cognitive Development Study [Poster]. Columbia University Biostatistics Summer Training Program (BEST) REU, New York, NY.
+References for Addison Yam
+Dr. Yen-Ming Hsu — Chief Executive Officer, AB Biosciences | ymhus@abbiosciences.com
+Dr. Joesph Orofino — Bioinformatics Scientist, Boston University School of Medicine | jorofino@bu.edu
+Dr. Melisa Osborne — Graduate Advisor & Bioinformatics Instructor, Boston University | melosbor@bu.edu
+Dr. Heather Williams — Associate Professor, University of Buffalo | hw49@buffalo.edu
+Justine Herrera — Senior Director of Academic Programs, Columbia University Climate School | jh2477@columbia.edu
