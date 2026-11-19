@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bacterial Genome Assembly Pipeline | Addison Yam</title><meta name="description" content="A Nextflow pipeline that assembles and evaluates a complete &lt;i&gt;Alteromonas macleodii&lt;/i&gt; genome from long and short reads."><meta name="color-scheme" content="light dark">
-<link rel="stylesheet" href="../style.css"></head><body>
+<link rel="stylesheet" href="../style.css?v=3"></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav"><div class="wrap"><a class="brand" href="../index.html">Addison Yam</a><nav aria-label="Main"><ul><li><a href="../index.html">Home</a></li><li><a href="../projects.html" aria-current=page>Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../Addison_Yam_CV_Nov_2026.pdf">CV (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav></div></header>
 <main id="main"><div class="wrap"><a class="back" href="../projects.html">← All projects</a>
-<header class="proj-head"><p class="eyebrow">Project</p><h1>Bacterial Genome Assembly Pipeline</h1><p class="lede">A Nextflow pipeline that assembles and evaluates a complete <i>Alteromonas macleodii</i> genome from long and short reads.</p></header>
+<header class="proj-head"><p class="eyebrow">Course project (BF528) · Nextflow</p><h1>Bacterial Genome Assembly Pipeline</h1><p class="lede">A Nextflow pipeline that assembles and evaluates a complete <i>Alteromonas macleodii</i> genome from long and short reads.</p></header>
 <div class="stats"><div><b>1</b><span>contig, 4,627,920 bp</span></div><div><b>99.6%</b><span>BUSCO complete (n = 1,828)</span></div><div><b>98.4%</b><span>genome fraction vs reference</span></div><div><b>18.18</b><span>mismatches / 100 kb (unpolished 18.33)</span></div></div>
-<section style="padding-top:var(--s-6)"><h2>Goal</h2><p style="margin-top:var(--s-3)">Build a reproducible long-read assembly workflow, polish it with short reads, and measure quality against the RefSeq reference (BF528 course project).</p></section>
-<section style="padding-top:var(--s-6)"><h2>Data and methods</h2><p style="margin-top:var(--s-3)">Short reads get FastQC; long reads are filtered with Filtlong (minimum length 500, best 90% kept) and assembled with Flye. Bowtie2 and samtools align short reads to the assembly for Pilon polishing. Prokka annotates, BUSCO (alteromonas_odb12) checks completeness, and QUAST compares polished and unpolished assemblies with RefSeq GCF_000172635.2.</p></section>
-<section style="padding-top:var(--s-6)"><h2>Code</h2><div class="code"><header><span>modules/flye/main.nf</span><button type="button">Copy</button></header><pre class="hl"><code><span class="n">process</span><span class="w"> </span><span class="n">FLYE</span><span class="w"> </span><span class="o">{</span>
+<section style="padding-top:var(--s-6)"><h2>The problem</h2><div style="margin-top:var(--s-4)"><p>A genome assembly is only useful if you can say how good it is. The pipeline assembles, polishes, annotates and then measures the result against the RefSeq reference, both before and after polishing.</p></div></section>
+<section style="padding-top:var(--s-6)"><h2>What I did</h2><div style="margin-top:var(--s-4)"><ol class="steps"><li><h3>Reads</h3><p>FastQC on short reads; Filtlong on long reads (minimum length 500, best 90% kept).</p></li><li><h3>Assemble and polish</h3><p>Flye builds the assembly; short reads are aligned with Bowtie2 and samtools and Pilon polishes.</p></li><li><h3>Annotate and judge</h3><p>Prokka annotates, BUSCO checks completeness, and QUAST compares polished and unpolished assemblies with RefSeq GCF_000172635.2.</p></li></ol></div></section>
+<section style="padding-top:var(--s-6)"><h2>Code</h2><div style="margin-top:var(--s-4)"><div class="code"><header><span>modules/flye/main.nf</span><button type="button">Copy</button></header><pre class="hl"><code><span class="n">process</span><span class="w"> </span><span class="n">FLYE</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="s1">'process_single'</span>
 <span class="w">    </span><span class="n">conda</span><span class="w"> </span><span class="s1">'envs/flye_env.yml'</span>
 <span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="na">outdir</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="s1">'copy'</span>
@@ -23,10 +23,39 @@
 <span class="w">    </span><span class="nl">script:</span>
 <span class="w">    </span><span class="s2">""</span><span class="err">"</span>
 <span class="w">    </span><span class="n">flye</span><span class="w"> </span><span class="o">--</span><span class="n">nano</span><span class="o">-</span><span class="n">corr</span><span class="w"> </span><span class="n">$nano</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">.</span>
-</code></pre></div><p class="num" style="font-size:var(--t-0);color:var(--muted);margin-top:calc(var(--s-3)*-1)">Nextflow process: long-read assembly with Flye</p></section>
-<section style="padding-top:var(--s-6)"><h2>Results</h2><div class="figs"><figure><div class="media"><img src="../assets/img/genome-assembly-circos_plot1.webp" alt="Circos plot of the polished assembly with Prokka annotations" width="1400" height="1472" loading="lazy" decoding="async"></div><figcaption>Circos plot built from the Prokka GFF.</figcaption></figure><figure><div class="media"><img src="../assets/img/genome-assembly-busco_figure.webp" alt="BUSCO completeness bar chart for the polished assembly" width="1400" height="840" loading="lazy" decoding="async"></div><figcaption>BUSCO: C:99.6% [S:99.5%, D:0.1%], F:0.0%, M:0.4%.</figcaption></figure></div></section>
-<section style="padding-top:var(--s-6)"><h2>Tools</h2><ul class="tags" style="margin-top:var(--s-4)"><li>Nextflow</li><li>FastQC</li><li>Filtlong</li><li>Flye</li><li>Bowtie2</li><li>samtools</li><li>Pilon</li><li>Prokka</li><li>BUSCO</li><li>QUAST</li><li>Conda</li></ul></section>
-<section style="padding-top:var(--s-6)"><h2>Links</h2><ul class="links" style="margin-top:var(--s-4)"><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline">Repository</a></li><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline/blob/main/project1_report.ipynb">Report (notebook)</a></li><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline/blob/main/project1_report.pdf">Report (PDF)</a></li></ul></section>
+</code></pre></div><p class="cap">Nextflow: long-read assembly with Flye</p><div class="code"><header><span>modules/pilon/main.nf</span><button type="button">Copy</button></header><pre class="hl"><code><span class="n">process</span><span class="w"> </span><span class="n">PILON</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="s1">'process_high'</span>
+<span class="w">    </span><span class="n">conda</span><span class="w"> </span><span class="s1">'envs/pilon_env.yml'</span>
+<span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="na">outdir</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="s1">'copy'</span>
+
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="n">genome</span><span class="o">)</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="n">bam</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s2">"*sorted.fasta"</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">shell:</span>
+<span class="w">    </span><span class="s2">""</span><span class="err">"</span>
+</code></pre></div><p class="cap">Nextflow: polishing with Pilon</p><div class="code"><header><span>modules/busco/main.nf</span><button type="button">Copy</button></header><pre class="hl"><code><span class="n">process</span><span class="w"> </span><span class="n">BUSCO</span><span class="o">{</span>
+<span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="s1">'process_high'</span>
+<span class="w">    </span><span class="n">conda</span><span class="w"> </span><span class="s1">'envs/busco_env.yml'</span>
+<span class="w">    </span><span class="n">publishDir</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="na">outdir</span><span class="o">,</span><span class="w"> </span><span class="nl">mode:</span><span class="s1">'copy'</span>
+
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="n">genome</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s2">"BUSCO_${genome.baseName}*"</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">shell:</span>
+<span class="w">    </span><span class="s2">""</span><span class="err">"</span>
+<span class="w">    </span><span class="n">busco</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">$</span><span class="o">{</span><span class="n">genome</span><span class="o">}</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">genome</span><span class="w"> </span><span class="o">--</span><span class="n">cpu</span><span class="w"> </span><span class="n">$task</span><span class="o">.</span><span class="na">cpus</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="n">alteromonas_odb12</span>
+</code></pre></div><p class="cap">Nextflow: completeness with BUSCO</p></div></section>
+<section style="padding-top:var(--s-6)"><h2>Results</h2><div style="margin-top:var(--s-4)"><div class="figs"><figure><div class="media"><img src="../assets/img/genome-assembly-circos_plot1.webp" alt="Circos plot of the polished assembly with Prokka annotations" width="1400" height="1472" loading="lazy" decoding="async"></div><figcaption>Circos plot built from the Prokka GFF.</figcaption></figure><figure><div class="media"><img src="../assets/img/genome-assembly-busco_figure.webp" alt="BUSCO completeness bar chart for the polished assembly" width="1400" height="840" loading="lazy" decoding="async"></div><figcaption>BUSCO: C:99.6% [S:99.5%, D:0.1%], F:0.0%, M:0.4%.</figcaption></figure></div></div></section>
+<section style="padding-top:var(--s-6)"><h2>What I learned and what I would do differently</h2><div style="margin-top:var(--s-4)"><ul class="bul"><li>Polishing moved QUAST mismatches only from 18.33 to 18.18 per 100 kb. The long-read assembly did most of the work, which is useful to know before spending compute on extra polishing rounds.</li></ul></div></section>
+<section style="padding-top:var(--s-6)"><h2>Tools</h2><div style="margin-top:var(--s-4)"><ul class="tags"><li>Nextflow</li><li>FastQC</li><li>Filtlong</li><li>Flye</li><li>Bowtie2</li><li>samtools</li><li>Pilon</li><li>Prokka</li><li>BUSCO</li><li>QUAST</li><li>Conda</li></ul></div></section>
+<section style="padding-top:var(--s-6)"><h2>Links</h2><div style="margin-top:var(--s-4)"><ul class="links"><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline">Repository</a></li><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline/blob/main/project1_report.ipynb">Report (notebook)</a></li><li><a class="btn" href="https://github.com/addisonyam/Genome-Assembly-Pipeline/blob/main/project1_report.pdf">Report (PDF)</a></li></ul></div></section>
 <p class="takeaway">A single 4.63 Mb contig with 99.6% BUSCO completeness; short-read polishing nudged QUAST mismatches from 18.33 to 18.18 per 100 kb.</p></div></main>
 <footer><div class="wrap"><span>© 2026 Addison Yam · Boston, MA</span><span><a href="mailto:addisony@bu.edu">addisony@bu.edu</a> · <a href="https://github.com/addisonyam/">GitHub</a> · <a href="https://www.linkedin.com/in/addisonyam">LinkedIn</a></span></div></footer>
 <script src="../assets/main.js" defer></script></body></html>
